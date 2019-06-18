@@ -1,0 +1,44 @@
+{% load bootstrap4 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>delete Task</title>
+</head>
+
+<body >
+  <div class="container">
+
+    <div class="content-section">
+      <form action="{% url 'deleteTask' task.id%}" method="POST" id="form">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Delete Task</legend>
+          <h4>Are you sure you want to delete  "<h3>{{ task.name}}</h3>" ??</h4>
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-danger" type="submit" style="background-color:red;">Yes, Delete</button>
+          <a class="btn btn-outline-secondary" href="/">Cancel</a>
+        </div>
+        <div id="feedback"></div>
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+  <script>
+      $('#form').submit(function() {
+          $('#feedback').html('The record has been permanently deleted '  );
+      });
+  </script>
+
+</body>
+
+</html>

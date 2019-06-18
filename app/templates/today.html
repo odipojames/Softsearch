@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Time Manager</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="background:linear-gradient(-90deg, #6600ff, #ff6600, #ffcc00);">
+<div class="col-sm-6 col-md-6">
+{% if user.is_authenticated %}
+<ul class="navbar-nav mr-auto d-flex justify-content-between">
+  <li class="nav-item">
+      <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home fa-2x" style="color:blue;padding-bottom:5px;padding-top:0;" data-toggle="tooltip" data-placement="bottom" title="Home"></i> <span class="sr-only">(current)</span></a>
+  </li>
+  <li class="nav-item">
+      {{user.username}}
+  </li>
+  <li class="nav-item">
+      <li>
+        Time Manager on {{date}}
+      </li>
+
+      <li>
+        <a href="/accounts/password/change">Change Password</a>
+      </li>
+      <li>
+        <a href="/logout">Logout</a>
+      </li>
+  </li>
+</ul>
+{% else %}
+<li>
+  <a class='btn btn-default' href="/accounts/login">Login</a>
+</li>
+
+{% endif %}
+</div>
+</nav>
+<div class='container'>
+  <div class="row" p-0>
+    <div class="col-md-6">
+    <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:250px;height:250px;"src="https://www.clocklink.com/html5embed.php?clock=013&timezone=EAT&color=green&size=250&Title=&Message=&Target=&From=2019,1,1,0,0,0&Color=green"></iframe></div>
+  <div class="col-md-6">
+   <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:700px;height:310px;"src="https://www.clocklink.com/html5embed.php?clock=countdown-new-years&timezone=EAT&color=black&size=700&Title=&Message=&Target=2019,12,31,0,0,0&From=2019,1,1,0,0,0&Color=black"></iframe>
+
+  </div>
+  </div>
+
+<div class="row">
+  {% if messages %}
+
+				 {% for message in messages %}
+				   {% if message.tags == 'success' %}
+				   <div class="alert alert-success alert-dismissible" role="alert">
+				     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				   {{ message }}</div>
+				   {%else%}
+				   <div class="alert alert-danger alert-dismissible" role="alert">
+				     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				   {{ message }}</div>
+				   {%endif%}
+
+
+				 {% endfor %}
+
+				 {% endif %}
+</div>
+
+<a href="{% url 'new_task' %}">Create task</a>
+<div class="row" p-0>
+  {% if item%}
+  <!--Table-->
+  <h2> {{user.username}}  you're suppose to accomplish these tasks Today </h2>
+<table class="table table-striped w-auto">
+
+  <!--Table head-->
+  <thead>
+    <tr>
+
+      <th>Task</th>
+      <th>SartTime</th>
+      <th>EndTime</th>
+      <th>Date</th>
+      <th>Done</th>
+      <th>Edit</th>
+      <th>Remove</th>
+
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  {% for t in item%}
+  <tbody>
+    <tr class="table-info">
+
+      <td>{{t.name}}</td>
+      <td>{{t.start}}</td>
+      <td>{{t.end}}</td>
+      <td>{{t.date}}</td>
+      <td>{{t.Done}}</td>
+      <td><a href="{%url 'updateTask' t.pk %}"><button class="btn btn-primary"> <i class="fas fa-pen"></i></span>Edit</button></a></td>
+
+
+						<td><a href="{%url 'confirm_delete' t.pk %}"><button class="btn btn-warning"> <i class="fas fa-trash-alt"></i></span>Delete</button></a></td>
+
+    </tr>
+
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->
+{%endfor%}
+{%else%}
+<h1>No tasks in your Today to do list!! </h1>
+{%endif%}
+</div>
+
+</div>
+</body>
+</html>
