@@ -1,4 +1,4 @@
-# Time Management System 
+# Time Management System
 
 ## Author
 
@@ -18,11 +18,12 @@ manage their time
 
 Run the following on your terminal :
 
-* $ git clone https://github.com/odipojames/projects-award.git
+* $ git clone https://github.com/odipojames/Softsearch.git
 * $ cd insta-clone
 * $ python3.6 -m venv virtual
 * $ source virtual/bin/activate
 * $ pip install -r requirements.text
+* $ postman to test api get method 
 
 
 To run the application on your local server run:
@@ -30,7 +31,7 @@ To run the application on your local server run:
 * $ python3.6 manage.py runserver
 
 Live link
-you can otherwise view the site by running the following url on your web browser :
+you can otherwise view the site by running the following url on your web browser : https://timemanager1.herokuapp.com/
 
 **Technologies Used**
 
