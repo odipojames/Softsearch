@@ -11,10 +11,10 @@ class TaskTest(TestCase):
         self.user = User.objects.create(id=1, username='k')
         self.task = Task.objects.create(id=1,
                                            creater=self.user,
-                                           start='12:00',
-                                           end='13:00',
+                                           start='13:00',
+                                           end='14:00',
                                            date='2019-06-25',
-                                           Done='No')
+                                           Done='NO')
 
     def test_instance(self):
         self.assertTrue(isinstance(self.task,Task))
