@@ -24,7 +24,8 @@ def home(request):
 
 def do_today(request):
     current_date = dt.date.today()
-    item = Task.objects.filter(date=current_date)
+    current_user = request.user
+    item = Task.objects.filter(date=current_date,creater=current_user)
     return render(request,'today.html',{"item":item})
 
 
